@@ -1,26 +1,19 @@
 import mysql.connector as bd
 import propriedades as sql
 
-conection = bd.connect(user=sql.dados["USER"],
-                       password=sql.dados["PASSWORD"],
-                       host=sql.dados["HOST"],
-                       database=sql.dados["DATABASE"])
-cursor = conection.cursor()
 
-query = """CREATE TABLE IF NOT EXISTS manifestacoes(
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nome VARCHAR(100),
-        email_manifestante VARCHAR(100),
-        descricao VARCHAR(100),
-        status VARCHAR(100),
-        responsavel VARCHAR(100),
-        prioridade VARCHAR(100),
-        categoria VARCHAR(100),
-        atribuido_a VARCHAR(100)
-    )"""
-cursor.execute(query)
+def conectarBd(dados):
+    return bd.connect(user=dados["USER"],
+                      password=dados["PASSWORD"],
+                      host=dados["HOST"],
+                      database=dados["DATABASE"])
+
+def desconectar(conection):
+    conection.close()
 
 def checarId(id):
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
     try:
         checar_query = "SELECT id FROM manifestacoes WHERE id = %s"
         cursor.execute(checar_query, (id,))
@@ -28,8 +21,11 @@ def checarId(id):
         return resultado is not None
     except bd.Error as e:
         print(f"Erro ao listar as manifestacoes: {e}")
+    desconectar(conection)
 
 def listar():
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
     try:
         listar_query = "SELECT * FROM manifestacoes"
         cursor.execute(listar_query)
@@ -40,8 +36,11 @@ def listar():
         return resultado
     except bd.Error as e:
         print(f"Erro ao listar as manifestacoes: {e}")
+    desconectar(conection)
 
 def cadastrar(manifestacao):
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
     try:
         cadastro_query = """
                 INSERT INTO manifestacoes (
@@ -59,8 +58,11 @@ def cadastrar(manifestacao):
         print(f"Cadastro da manifestacao {manifestacao['nome']} bem sucedido!")
     except bd.Error as e:
         print(f"Erro ao cadastrar a manifestacao: {e}")
+    desconectar(conection)
 
 def excluir(id):
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
     if checarId(id):
         try:
             excluir_query = "DELETE FROM manifestacoes WHERE id = %s"
@@ -72,8 +74,11 @@ def excluir(id):
             print(f"Erro ao excluir a manifestacao: {e}")
     else:
         print("Id invalido!")
-      
+    desconectar(conection)
+
 def atualizar(valores_novos, id):
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
     if checarId(id):
         try:
             atualizar_query = """
@@ -103,3 +108,23 @@ def atualizar(valores_novos, id):
             print(f"Erro ao atualizar a manifestacao: {e}")
     else:
         print("Id invalido!")
+    desconectar(conection)
+
+def criarTabela():
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
+    query = """CREATE TABLE IF NOT EXISTS manifestacoes(
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(100),
+            email_manifestante VARCHAR(100),
+            descricao VARCHAR(100),
+            status VARCHAR(100),
+            responsavel VARCHAR(100),
+            prioridade VARCHAR(100),
+            categoria VARCHAR(100),
+            atribuido_a VARCHAR(100)
+        )"""
+    cursor.execute(query)
+    desconectar(conection)
+
+criarTabela()
