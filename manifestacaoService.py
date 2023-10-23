@@ -60,7 +60,6 @@ def cadastrar(manifestacao):
     except bd.Error as e:
         print(f"Erro ao cadastrar a manifestacao: {e}")
 
-
 def excluir(id):
     if checarId(id):
         try:
@@ -73,6 +72,7 @@ def excluir(id):
             print(f"Erro ao excluir a manifestacao: {e}")
     else:
         print("Id invalido!")
+      
 def atualizar(valores_novos, id):
     if checarId(id):
         try:
