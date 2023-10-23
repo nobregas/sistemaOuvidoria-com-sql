@@ -12,7 +12,7 @@ manifestacao = {
     "atribuido_a": ""
 }
 
-def pegarDados(manifestacao, pegarid=False):
+def pegarDados(manifestacao, pegarid=False): #REFATORAR (levar pra main)
     manifestacao["nome"] = input("Digite o nome da manifestacao: ")
     manifestacao["email_manifestante"] = input("Digite o email do manifestante: ")
     manifestacao["descricao"] = input("Digite a descricao da manifestacao: ")
@@ -63,4 +63,3 @@ def atualizarManifestacao():
     pegarDados(manifestacao, True)
     service.atualizar(manifestacao, id)
     print("-----------------------------------------------------------------")
-
