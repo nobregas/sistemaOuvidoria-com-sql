@@ -1,5 +1,5 @@
 import manifestacaoController as controller
-import manifestacaoService as service
+
 
 def mostrarInterface():
     print("1 - Listar manifestacoes\n"
@@ -19,16 +19,7 @@ def pegarOpcaoValida():
     return opcao
 
 while True:
-    manifestacao = {
-        "nome": "",
-        "email_manifestante": "",
-        "descricao": "",
-        "status": "",
-        "responsavel": "",
-        "prioridade": "",
-        "categoria": "",
-        "atribuido_a": ""
-    }
+    manifestacao = controller.manifestacao
 
     mostrarInterface()
     opcao = pegarOpcaoValida()
@@ -50,5 +41,3 @@ while True:
 
         case 4:
             controller.atualizarManifestacao()
-
-service.conection.close()
