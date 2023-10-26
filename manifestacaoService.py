@@ -21,7 +21,8 @@ def checarId(id):
         return resultado is not None
     except bd.Error as e:
         print(f"Erro ao listar as manifestacoes: {e}")
-    desconectar(conection)
+    finally:
+        desconectar(conection)
 
 def listar():
     conection = conectarBd(sql.dados)
@@ -36,7 +37,8 @@ def listar():
         return resultado
     except bd.Error as e:
         print(f"Erro ao listar as manifestacoes: {e}")
-    desconectar(conection)
+    finally:
+        desconectar(conection)
 
 def cadastrar(manifestacao):
     conection = conectarBd(sql.dados)
@@ -58,7 +60,8 @@ def cadastrar(manifestacao):
         print(f"Cadastro da manifestacao {manifestacao['nome']} bem sucedido!")
     except bd.Error as e:
         print(f"Erro ao cadastrar a manifestacao: {e}")
-    desconectar(conection)
+    finally:
+        desconectar(conection)
 
 def excluir(id):
     conection = conectarBd(sql.dados)
