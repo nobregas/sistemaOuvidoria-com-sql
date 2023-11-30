@@ -4,29 +4,17 @@ import manifestacaoController as controller
 def mostrarInterface():
     print("1 - Listar manifestacoes\n"
           "2 - Cadastrar manifestacao\n"
-          "3 - Excluir manifestacao\n"
-          "4 - Alterar manifestacao\n"
-          "5 - sair\n")
+          "3 - Excluir manifestacao por Id\n"
+          "4 - Alterar manifestacao por Id\n"
+          "5 - Pegar manifestacao por Id\n"
+          "6 - sair\n"
+          )
 
-def pegarOpcaoValida():
-    while True:
-        opcao = int(input("Digite a opcao: "))
-        if opcao not in [1, 2, 3, 4, 5]:
-            print("Opcao invalida!!")
-        else:
-            break
-
-    return opcao
 
 while True:
-
     mostrarInterface()
-    opcao = pegarOpcaoValida()
-    print("-------------------------------------------")
-
-    if opcao == 5: #opcao 5
-        print("Saindo...")
-        break
+    opcao = int(input("Digite a opcao: "))
+    print("-----------------------------------------------------------")
 
     match opcao:
         case 1:
@@ -40,3 +28,14 @@ while True:
 
         case 4:
             controller.atualizarManifestacao()
+
+        case 5:
+            controller.pegarManifestacaoPorId()
+
+        case 6:
+            print("Saindo...")
+            break
+
+        case _:
+            print("Opcao invalida!!")
+            print("-----------------------------------------------------------")
