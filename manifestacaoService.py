@@ -8,8 +8,10 @@ def conectarBd(dados):
                       host=dados["HOST"],
                       database=dados["DATABASE"])
 
+
 def desconectar(conection):
     conection.close()
+
 
 def checarId(id):
     conection = conectarBd(sql.dados)
@@ -23,6 +25,7 @@ def checarId(id):
         print(f"Erro ao listar as manifestacoes: {e}")
     finally:
         desconectar(conection)
+
 
 def listar():
     conection = conectarBd(sql.dados)
@@ -39,6 +42,24 @@ def listar():
         print(f"Erro ao listar as manifestacoes: {e}")
     finally:
         desconectar(conection)
+
+
+def pegarPorId(id):
+    conection = conectarBd(sql.dados)
+    cursor = conection.cursor()
+    if checarId(id):
+        try:
+            pegar_por_id_query = "SELECT * FROM manifestacoes WHERE id = %s"
+            cursor.execute(pegar_por_id_query, (id,))
+            resultado = cursor.fetchone()
+            return resultado
+
+        except bd.Error as e:
+            print(f"Erro ao pegar a manifestacao: {e}")
+    else:
+        print("Id invalido!")
+    desconectar(conection)
+
 
 def cadastrar(manifestacao):
     conection = conectarBd(sql.dados)
@@ -63,6 +84,7 @@ def cadastrar(manifestacao):
     finally:
         desconectar(conection)
 
+
 def excluir(id):
     conection = conectarBd(sql.dados)
     cursor = conection.cursor()
@@ -78,6 +100,7 @@ def excluir(id):
     else:
         print("Id invalido!")
     desconectar(conection)
+
 
 def atualizar(valores_novos, id):
     conection = conectarBd(sql.dados)
@@ -113,6 +136,7 @@ def atualizar(valores_novos, id):
         print("Id invalido!")
     desconectar(conection)
 
+
 def criarTabela():
     conection = conectarBd(sql.dados)
     cursor = conection.cursor()
@@ -129,5 +153,6 @@ def criarTabela():
         )"""
     cursor.execute(query)
     desconectar(conection)
+
 
 criarTabela()
