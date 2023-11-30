@@ -19,7 +19,6 @@ def pegarOpcaoValida():
     return opcao
 
 while True:
-    manifestacao = controller.manifestacao
 
     mostrarInterface()
     opcao = pegarOpcaoValida()
@@ -34,7 +33,7 @@ while True:
             controller.listarManifestacoes()
 
         case 2:
-            controller.cadastrarManifestacao(manifestacao)
+            controller.cadastrarManifestacao()
 
         case 3:
             controller.excluirManifestacao()
