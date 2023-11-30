@@ -1,6 +1,5 @@
 import manifestacaoService as service
 
-
 manifestacao = {
     "nome": "",
     "email_manifestante": "",
@@ -12,7 +11,8 @@ manifestacao = {
     "atribuido_a": ""
 }
 
-def pegarDados(manifestacao, pegarid=False): 
+
+def pegarDados(manifestacao, pegarid=False):
     manifestacao["nome"] = input("Digite o nome da manifestacao: ")
     manifestacao["email_manifestante"] = input("Digite o email do manifestante: ")
     manifestacao["descricao"] = input("Digite a descricao da manifestacao: ")
@@ -37,6 +37,7 @@ def printJustificadoManifestacao(manifestacao):
           f"categoria: {manifestacao[7]}\n"
           f"atribuido a: {manifestacao[8]}\n")
 
+
 def listarManifestacoes():
     print("-------------------Lista manifestacoes---------------------")
     manifestacoes = service.listar()
@@ -44,22 +45,34 @@ def listarManifestacoes():
         printJustificadoManifestacao(manifestacao)
     print("-----------------------------------------------------------")
 
+
+def pegarManifestacaoPorId():
+    print("-----------------------Manifestacao------------------------")
+    id = int(input("Digite o id da manifestacao: "))
+    print()
+    manifestacao_ = service.pegarPorId(id)
+    printJustificadoManifestacao(manifestacao_)
+    print("-----------------------------------------------------------")
+
+
 def cadastrarManifestacao():
     print("------------------Cadastrando manifestacao-----------------")
     pegarDados(manifestacao)
     service.cadastrar(manifestacao)
     print("-----------------------------------------------------------")
 
+
 def excluirManifestacao():
-    print("--------------------Excluindo manifestacao---------------------")
+    print("------------------Excluindo manifestacao-------------------")
     listarManifestacoes()
     id = int(input("Digite o id da manifestacao: "))
     service.excluir(id)
-    print("---------------------------------------------------------------")
+    print("-----------------------------------------------------------")
+
 
 def atualizarManifestacao():
-    print("--------------------atualizando manifestacao---------------------")
+    print("-----------------atualizando manifestacao------------------")
     listarManifestacoes()
     pegarDados(manifestacao, True)
     service.atualizar(manifestacao, id)
-    print("-----------------------------------------------------------------")
+    print("-----------------------------------------------------------")
