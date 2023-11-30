@@ -12,7 +12,7 @@ manifestacao = {
     "atribuido_a": ""
 }
 
-def pegarDados(manifestacao, pegarid=False): #REFATORAR (levar pra main)
+def pegarDados(manifestacao, pegarid=False): 
     manifestacao["nome"] = input("Digite o nome da manifestacao: ")
     manifestacao["email_manifestante"] = input("Digite o email do manifestante: ")
     manifestacao["descricao"] = input("Digite a descricao da manifestacao: ")
@@ -44,7 +44,7 @@ def listarManifestacoes():
         printJustificadoManifestacao(manifestacao)
     print("-----------------------------------------------------------")
 
-def cadastrarManifestacao(manifestacao):
+def cadastrarManifestacao():
     print("------------------Cadastrando manifestacao-----------------")
     pegarDados(manifestacao)
     service.cadastrar(manifestacao)
