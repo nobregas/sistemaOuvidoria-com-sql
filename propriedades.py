@@ -1,7 +1,7 @@
 dados = {
-    "USER": "UsuarioBD",
-    "PASSWORD": "SenhaBD",
-    "HOST": "Host",
-    "DATABASE": "Nome_DataBase"
+    "USER": "root",
+    "PASSWORD": "root",
+    "HOST": "127.0.0.1",
+    "DATABASE": "sis_ouvidoria"
 }
 
